@@ -1,19 +1,21 @@
 pipeline {
     agent any
-    tools {nodejs "latest"}
+    tools {nodejs "node"}
     stages {
-        stage('build') {
+        stage('Git') {
             steps {
-                echo 'building the software'
-                sh 'npm install'
+                git 'https://github.com/alexcostars/devops-nodejs-demo-app'
             }
         }
-        stage('test') {
+        stage('Build') {
             steps {
-                echo 'testing the software'
-                sh 'npm test'
+                sh 'npm install'
+            }
+        }         
+        stage('Test') {
+            steps {
+                sh 'node test'
             }
         }
     }
 }
-
